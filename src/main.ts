@@ -71,7 +71,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
       });
     });
 
-    fastify.listen({ port: PORT, host: '127.0.0.1' }, (e, address) => {
+    fastify.listen({ port: PORT, host: '0.0.0.0' }, (e, address) => {
       if (e) throw e;
       console.log(`server listening on ${address}`);
     });
