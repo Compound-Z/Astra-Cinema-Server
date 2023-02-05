@@ -1,7 +1,8 @@
 import { FastifyRequest, FastifyReply, FastifyInstance, RegisterOptions } from 'fastify';
 import { MOVIES } from '@consumet/extensions';
 import { StreamingServers } from '@consumet/extensions/dist/models';
-
+import { Sub, SubModel } from '../../models/Sub'
+import { MediaStreamResource } from '../../models/MediaStreamResource';
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   const flixhq = new MOVIES.FlixHQ();
 
@@ -97,9 +98,24 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       return reply.status(400).send({ message: 'Invalid server query' });
 
     try {
-      const res = await flixhq
-        .fetchEpisodeSources(episodeId, mediaId, server)
-        .catch((err) => reply.status(404).send({ message: 'Media Not found.' }));
+
+      const [media, vietsub] = await Promise.allSettled(
+        [
+          flixhq
+            .fetchEpisodeSources(episodeId, mediaId, server)
+            .catch((err) => reply.status(404).send({ message: 'Media Not found.' })),
+
+          SubModel.findOne({ id: mediaId, episodeId: episodeId })
+        ]
+      )
+
+      if (media.status === 'rejected') throw new Error("Server error")
+
+      const res = media.value as MediaStreamResource
+      if (vietsub.status === 'fulfilled' && vietsub.value != null) {
+        const vietsubData = vietsub.value as Sub
+        res.subtitles.push({ lang: vietsubData.lang, url: vietsubData.url })
+      }
 
       reply.status(200).send(res);
     } catch (err) {
@@ -125,12 +141,6 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   });
 
   fastify.put('/vietsub', async (request: FastifyRequest, reply: FastifyReply) => {
-    const id = (request.query as { id: string }).id;
-
-    if (typeof id === 'undefined')
-      return reply.status(400).send({
-        message: 'id is required',
-      });
 
     if (!request.body)
       return reply.status(400).send({
@@ -138,14 +148,16 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       });
 
     try {
-      let x = request.body as Sub;
-      // const res = await flixhq
-      //   .fetchMediaInfo(id)
-      //   .catch((err) => reply.status(404).send({ message: err }));
+      let subBody = request.body as Sub;
+      var query = { id: subBody.id },
+        update = subBody,
+        options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-      reply.status(200).send({ ok: "ok" });
+      const sub = await SubModel.findOneAndUpdate(query, update, options)
+        .catch((err) => reply.status(404).send({ message: err }))
+
+      reply.status(200).send(sub);
     } catch (err) {
-      console.log("ERROR " + err)
       reply.status(500).send({
         message:
           'Something went wrong. Please try again later. or contact the developers.',
@@ -153,10 +165,5 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     }
   });
 };
-
-interface Sub {
-  lang: string,
-  url: string
-}
 
 export default routes;
