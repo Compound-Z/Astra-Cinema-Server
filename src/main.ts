@@ -50,13 +50,13 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     methods: 'GET',
   });
 
-  await fastify.register(books, { prefix: '/books' });
-  await fastify.register(anime, { prefix: '/anime' });
-  await fastify.register(manga, { prefix: '/manga' });
+  // await fastify.register(books, { prefix: '/books' });
+  // await fastify.register(anime, { prefix: '/anime' });
+  // await fastify.register(manga, { prefix: '/manga' });
   //await fastify.register(comics, { prefix: '/comics' });
-  await fastify.register(lightnovels, { prefix: '/light-novels' });
+  // await fastify.register(lightnovels, { prefix: '/light-novels' });
   await fastify.register(movies, { prefix: '/movies' });
-  await fastify.register(meta, { prefix: '/meta' });
+  // await fastify.register(meta, { prefix: '/meta' });
 
   await fastify.register(Utils, { prefix: '/utils' });
 
@@ -71,7 +71,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
       });
     });
 
-    fastify.listen({ port: PORT, host: '0.0.0.0' }, (e, address) => {
+    fastify.listen({ port: PORT, host: '127.0.0.1' }, (e, address) => {
       if (e) throw e;
       console.log(`server listening on ${address}`);
     });
