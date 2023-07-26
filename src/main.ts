@@ -61,12 +61,14 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
   fastify.get('/static/slearn_100.ipa', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_100.ipa'));
     reply.send(stream);
-    // reply.sendFile('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+  })
+  fastify.get('/static/slearn_100.plist', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100.plist'));
+    reply.send(stream);
   })
   fastify.get('/static/test', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/test.html'));
     reply.send(stream);
-    // reply.sendFile('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
   })
   // await fastify.register(books, { prefix: '/books' });
   // await fastify.register(anime, { prefix: '/anime' });
