@@ -6,6 +6,19 @@ import { MediaStreamResource } from '../../models/MediaStreamResource';
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   const flixhq = new MOVIES.FlixHQ();
 
+  fastify.get('/check_update', (req, res) => {
+    const platform = (req.query as { platform: string }).platform;
+    const getHighVersion = (req.query as { getHighVersion: boolean }).getHighVersion;
+    const isForceUpdate = (req.query as { isForceUpdate: boolean }).isForceUpdate;
+    console.log(platform);
+    res.status(200).send({
+      title: "Force update",
+      message: "Force update message",
+      url: "https://firebasestorage.googleapis.com/v0/b/deeplink9.appspot.com/o/S_edX-Dev.ipa?alt=media&token=cfa012e4-37e7-467b-9c84-822b18a15350",
+      getHighVersion: getHighVersion,
+    });
+  });
+
   fastify.get('/', (_, rp) => {
     rp.status(200).send({
       intro:
