@@ -12,6 +12,10 @@ import meta from './routes/meta';
 import chalk from 'chalk';
 import Utils from './utils';
 import connectDB from './db/connect'
+const path = require('path');
+const fs = require('fs');
+
+
 export const redis =
   process.env.REDIS_HOST &&
   new Redis({
@@ -50,6 +54,20 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     methods: 'GET',
   });
 
+  await fastify.register(require('@fastify/static'), {
+    root: path.join(__dirname, 'static'),
+    prefix: '/static/', 
+  })
+  fastify.get('/static/slearn_100.ipa', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100.ipa'));
+    reply.send(stream);
+    // reply.sendFile('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+  })
+  fastify.get('/static/test', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/test.html'));
+    reply.send(stream);
+    // reply.sendFile('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+  })
   // await fastify.register(books, { prefix: '/books' });
   // await fastify.register(anime, { prefix: '/anime' });
   // await fastify.register(manga, { prefix: '/manga' });
