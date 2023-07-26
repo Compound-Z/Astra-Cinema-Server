@@ -24,6 +24,7 @@
     "dependencies": {
         "@consumet/extensions": "^1.4.16",
         "@fastify/cors": "^8.2.0",
+        "@fastify/static": "^6.10.2",
         "@types/fastify-cors": "^2.1.0",
         "@types/node": "^18.11.17",
         "@types/ws": "^8.5.3",
