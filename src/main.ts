@@ -60,16 +60,29 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
   })
   fastify.get('/static/slearn_100.ipa', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_100.ipa'));
-    reply.send(stream);
+    reply.type("application/octet-stream").send(stream);
   })
   fastify.get('/static/slearn_100.plist', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_100.plist'));
+    reply.type("text/xml").send(stream);
+  })
+  fastify.get('/static/slearn_1098.ipa', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_1098.ipa'));
     reply.type("application/octet-stream").send(stream);
   })
-  fastify.get('/static/test', function (req, reply) {
-    const stream = fs.createReadStream(path.resolve('./static/test.html'));
-    reply.send(stream);
+  fastify.get('/static/slearn_1098.plist', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_1098.plist'));
+    reply.type("text/xml").send(stream);
   })
+  fastify.get('/static/slearn_100.apk', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100.apk'));
+    reply.type("application/octet-stream").send(stream);
+  })
+  fastify.get('/static/slearn_1098.apk', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_1098.apk'));
+    reply.type("text/xml").send(stream);
+  })
+ 
   // await fastify.register(books, { prefix: '/books' });
   // await fastify.register(anime, { prefix: '/anime' });
   // await fastify.register(manga, { prefix: '/manga' });

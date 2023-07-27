@@ -6,16 +6,33 @@ import { MediaStreamResource } from '../../models/MediaStreamResource';
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   const flixhq = new MOVIES.FlixHQ();
 
-  fastify.get('/check_update', (req, res) => {
+  fastify.get('/app_versions', (req, res) => {
     const platform = (req.query as { platform: string }).platform;
     const getHighVersion = (req.query as { getHighVersion: boolean }).getHighVersion;
-    const isForceUpdate = (req.query as { isForceUpdate: boolean }).isForceUpdate;
-    console.log(platform);
+    console.log(getHighVersion.valueOf);
+    const is_require_update = (req.query as { isForceUpdate: boolean }).isForceUpdate;
+
+    let url = "";
+    let version = "";
+
+    if(platform == "android"){
+      if(getHighVersion == true) url = "https://astra-cinema.herokuapp.com/static/slearn_1098.apk";
+      else url = "https://astra-cinema.herokuapp.com/static/slearn_100.apk";
+    }else{
+      if(getHighVersion == true) url = "itms-services://?action=download-manifest&url=https://astra-cinema.herokuapp.com/static/slearn_1098.plist";
+      else url = "itms-services://?action=download-manifest&url=https://astra-cinema.herokuapp.com/static/slearn_100.plist";
+    }
+    
+    if(getHighVersion)
+      version = "10.9.8+100";
+    else
+      version = "1.0.0+1";
+
     res.status(200).send({
-      title: "Force update",
-      message: "Force update message",
-      url: "https://firebasestorage.googleapis.com/v0/b/deeplink9.appspot.com/o/S_edX-Dev.ipa?alt=media&token=cfa012e4-37e7-467b-9c84-822b18a15350",
-      getHighVersion: getHighVersion,
+      version: version,
+      message: "Mock force update api",
+      url: url,
+      is_require_update: is_require_update
     });
   });
 
