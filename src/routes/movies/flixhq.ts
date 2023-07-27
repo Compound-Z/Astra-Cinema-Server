@@ -29,11 +29,14 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       version = "1.0.0+1";
 
     res.status(200).send({
-      version: version,
-      message: "Mock force update api",
-      url: url,
-      is_require_update: is_require_update == true ? true : false
-    });
+        message: "Get version successfully",
+        data: {
+          version: version,
+          message: "Mock force update api",
+          url: url,
+          is_require_update: is_require_update == true ? true : false
+        }
+      });
   });
 
   fastify.get('/', (_, rp) => {
