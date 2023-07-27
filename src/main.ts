@@ -80,7 +80,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
   })
   fastify.get('/static/slearn_1098.apk', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_1098.apk'));
-    reply.type("text/xml").send(stream);
+    reply.type("application/octet-stream").send(stream);
   })
  
   // await fastify.register(books, { prefix: '/books' });
