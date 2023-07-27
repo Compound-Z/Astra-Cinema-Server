@@ -23,7 +23,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       else url = "itms-services://?action=download-manifest&url=https://astra-cinema.herokuapp.com/static/slearn_100.plist";
     }
     
-    if(getHighVersion)
+    if(getHighVersion == true)
       version = "10.9.8+100";
     else
       version = "1.0.0+1";
@@ -32,7 +32,7 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
       version: version,
       message: "Mock force update api",
       url: url,
-      is_require_update: is_require_update
+      is_require_update: is_require_update == true ? true : false
     });
   });
 
