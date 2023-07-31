@@ -9,7 +9,6 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   fastify.get('/app_versions', (req, res) => {
     const platform = (req.query as { platform: string }).platform;
     const getHighVersion = (req.query as { getHighVersion: boolean }).getHighVersion;
-    console.log(getHighVersion.valueOf);
     const is_require_update = (req.query as { isForceUpdate: boolean }).isForceUpdate;
 
     let url = "";
