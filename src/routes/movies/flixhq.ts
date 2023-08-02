@@ -16,8 +16,8 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     let version = "";
 
     if(platform == "android"){
-      if(getHighVersion == true) url = `${BASE_URL}static/slearn_1098.apk`;
-      else url = `${BASE_URL}static/slearn_100.apk`;
+      if(getHighVersion == true) url = `${BASE_URL}static/slearn_1098_dev_debug.apk`;
+      else url = `${BASE_URL}static/slearn_100_dev_debug.apk`;
     }else{
       if(getHighVersion == true) url = `itms-services://?action=download-manifest&url=${BASE_URL}static/slearn_1098.plist`;
       else url = `itms-services://?action=download-manifest&url=${BASE_URL}static/slearn_100.plist`;
