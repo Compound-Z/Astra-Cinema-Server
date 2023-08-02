@@ -5,6 +5,7 @@ import { Sub, SubModel } from '../../models/Sub'
 import { MediaStreamResource } from '../../models/MediaStreamResource';
 const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
   const flixhq = new MOVIES.FlixHQ();
+  const BASE_URL = "https://astra-cinema-cc3341704910.herokuapp.com/";
 
   fastify.get('/app_versions', (req, res) => {
     const platform = (req.query as { platform: string }).platform;
@@ -15,11 +16,11 @@ const routes = async (fastify: FastifyInstance, options: RegisterOptions) => {
     let version = "";
 
     if(platform == "android"){
-      if(getHighVersion == true) url = "https://astra-cinema.herokuapp.com/static/slearn_1098.apk";
-      else url = "https://astra-cinema.herokuapp.com/static/slearn_100.apk";
+      if(getHighVersion == true) url = `${BASE_URL}static/slearn_1098.apk`;
+      else url = `${BASE_URL}static/slearn_100.apk`;
     }else{
-      if(getHighVersion == true) url = "itms-services://?action=download-manifest&url=https://astra-cinema.herokuapp.com/static/slearn_1098.plist";
-      else url = "itms-services://?action=download-manifest&url=https://astra-cinema.herokuapp.com/static/slearn_100.plist";
+      if(getHighVersion == true) url = `itms-services://?action=download-manifest&url=${BASE_URL}static/slearn_1098.plist`;
+      else url = `itms-services://?action=download-manifest&url=${BASE_URL}static/slearn_100.plist`;
     }
     
     if(getHighVersion == true)
