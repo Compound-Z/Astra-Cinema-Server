@@ -78,7 +78,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     const stream = fs.createReadStream(path.resolve('./static/slearn_100_dev_debug.apk'));
     reply.type("application/octet-stream").send(stream);
   })
-  fastify.get('/static/slearn_100_dev_debug.apk', function (req, reply) {
+  fastify.get('/static/slearn_1098_dev_debug.apk', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_1098_dev_debug.apk'));
     reply.type("application/octet-stream").send(stream);
   })
