@@ -75,12 +75,20 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     reply.type("text/xml").send(stream);
   })
   fastify.get('/static/slearn_100.apk', function (req, reply) {
-    const stream = fs.createReadStream(path.resolve('./static/slearn_100.apk'));
-    reply.type("application/octet-stream").send(stream);
+    const filePath = path.resolve('./static/slearn_100.apk')
+    const stat = fs.statSync(filePath);
+    const stream = fs.createReadStream(filePath)
+    stream.on('open', () => {
+      reply.header('Content-Length', stat.size).type("application/octet-stream").send(stream);
+    });
   })
   fastify.get('/static/slearn_1098.apk', function (req, reply) {
-    const stream = fs.createReadStream(path.resolve('./static/slearn_1098.apk'));
-    reply.type("application/octet-stream").send(stream);
+    const filePath = path.resolve('./static/slearn_1098.apk')
+    const stat = fs.statSync(filePath);
+    const stream = fs.createReadStream(filePath)
+    stream.on('open', () => {
+      reply.header('Content-Length', stat.size).type("application/octet-stream").send(stream);
+    });
   })
  
   // await fastify.register(books, { prefix: '/books' });
