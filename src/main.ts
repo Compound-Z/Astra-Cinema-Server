@@ -64,7 +64,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
   })
   fastify.get('/static/slearn_100.plist', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_100.plist'));
-    reply.type("text/xml").send(stream);
+    reply.type("application/octet-stream").send(stream);
   })
   fastify.get('/static/slearn_1098.ipa', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_1098.ipa'));
@@ -72,7 +72,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
   })
   fastify.get('/static/slearn_1098.plist', function (req, reply) {
     const stream = fs.createReadStream(path.resolve('./static/slearn_1098.plist'));
-    reply.type("text/xml").send(stream);
+    reply.type("application/octet-stream").send(stream);
   })
   fastify.get('/static/slearn_100_dev_release.apk', function (req, reply) {
     const filePath = path.resolve('./static/slearn_100_dev_release.apk')
