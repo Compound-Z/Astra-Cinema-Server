@@ -74,6 +74,14 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     const stream = fs.createReadStream(path.resolve('./static/slearn_1098.plist'));
     reply.type("application/octet-stream").send(stream);
   })
+  fastify.get('/static/slearn_100_code_update.ipa', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100_code_update.ipa'));
+    reply.type("application/octet-stream").send(stream);
+  })
+  fastify.get('/static/slearn_100_code_update.plist', function (req, reply) {
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100_code_update.plist'));
+    reply.type("application/octet-stream").send(stream);
+  })
   fastify.get('/static/slearn_100_dev_release.apk', function (req, reply) {
     const filePath = path.resolve('./static/slearn_100_dev_release.apk')
     const stat = fs.statSync(filePath);
