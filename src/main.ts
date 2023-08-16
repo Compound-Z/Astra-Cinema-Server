@@ -75,7 +75,7 @@ export const tmdbApi = process.env.apiKey && process.env.apiKey;
     reply.type("application/octet-stream").send(stream);
   })
   fastify.get('/static/slearn_100_code_update_2.ipa', function (req, reply) {
-    const stream = fs.createReadStream(path.resolve('./static/slearn_100_code_update_2.ipa'));
+    const stream = fs.createReadStream(path.resolve('./static/slearn_100_code_update.ipa'));
     reply.type("application/octet-stream").send(stream);
   })
   fastify.get('/static/slearn_100_code_update.plist', function (req, reply) {
